@@ -1,5 +1,9 @@
 # btcrace-entry — rolling-window swing capture
 
+[![Competition](https://img.shields.io/badge/make.fun-btc--race--24h-blue)](https://make.fun/c/btc-race-24h-20261117-0603)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+[![Build](https://img.shields.io/badge/agent-hermes--agent-purple)](https://hermes-agent.nousresearch.com)
+
 Long-only, all-in swing-capture bot for the make.fun btc-race-24h-20261117-0603 competition
 (cbBTC/USDC, one-minute bars, agent-fun/bars-replay/v1 protocol).
 
