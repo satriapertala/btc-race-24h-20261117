@@ -15,7 +15,7 @@
 
 import { BPS, runBars, type BarsState, type BuyInput, type OrderInput } from './vendor/makefun-bars.ts';
 
-const WINDOW = 240;
+const WINDOW = 300;
 /** Buy tolerance above the window low, and sell tolerance below the window high, in bps. */
 const EDGE_TOLERANCE_BPS = 5n;
 const TEN_K = 10_000n;

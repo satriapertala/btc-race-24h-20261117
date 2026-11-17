@@ -9,7 +9,7 @@ Long-only, all-in swing-capture bot for the make.fun btc-race-24h-20261117-0603 
 
 ## Strategy
 
-- Window: last 240 bar closes of CBBTC (BigInt arithmetic only, ratios compared cross-multiplied — exact and deterministic).
+- Window: last 300 bar closes of CBBTC (BigInt arithmetic only, ratios compared cross-multiplied — exact and deterministic).
 - **Buy** on a closed bar when `close <= windowMin * (1 + 5 bps)` (price sitting at the window low) **and** `close >= open` (the dip bar closed green — turning-up filter). Order fills at the next bar's open, all-in: cash capped by `caps.max_weight_bps` of equity, `max_slippage_bps = 100`.
 - **Sell** while holding when any of:
   - `close >= windowMax * (1 - 5 bps)` (back at the window high),
@@ -22,10 +22,10 @@ Long-only, all-in swing-capture bot for the make.fun btc-race-24h-20261117-0603 
 - `main.ts` — the bot (Node 22, erasable TypeScript, stdlib + vendored shim only).
 - `vendor/makefun-bars.ts` — byte-identical copy of the kit's `sdk/makefun-bars.ts`.
 
-## Dev-window result (grade-local, process driver, commit ff0bdc9)
+## Dev-window result (grade-local --worktree, process driver, N=300)
 
-- net PnL **+11.754655 USDC** (return +1.18%), 4 trades, win rate 1.0
-- max drawdown 0.93%, exposure 23.3%, fees 1.61 USDC; 0 rejected orders
+- net PnL **+7.308886 USDC** (return +0.73%), 3 trades, win rate 0.5
+- max drawdown 0.93%, exposure 33.8%, fees 1.61 USDC; 0 rejected orders
 - guardrails met; grader's two executions reproduced the action log byte for byte
 
 ## Determinism
