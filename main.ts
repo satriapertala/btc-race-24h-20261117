@@ -1,12 +1,12 @@
 // Rolling-window swing capture, long-only, all-in, on CBBTC/USDC minute bars.
 //
-// Window N = 240 closes. Signal read on the bar that just closed (fills land at the next open):
-//   BUY  when close <= min(last 240 closes) * (1 + 5 bps)   -- price is at the window low
+// Window N = WINDOW closes. Signal read on the bar that just closed (fills land at the next open):
+//   BUY  when close <= min(last WINDOW closes) * (1 + 8 bps)   -- price is at the window low
 //        AND close >= open of that bar                       -- and the dip bar closed green
 //   SELL while holding when any of:
-//        close >= max(last 240 closes) * (1 - 5 bps)         -- back at the window high
-//        take profit: close >= entry * 1.015
-//        stop loss:   close <= entry * 0.992
+//        close >= max(last WINDOW closes) * (1 - 8 bps)         -- back at the window high
+//        take profit: close >= entry * 1.025
+//        stop loss:   close <= entry * 0.988
 // Sizing is all-in, capped by caps.max_weight_bps of equity, with MAX_SLIPPAGE_BPS = 100.
 // Entry price comes from the fill report (batch.fills), so TP/SL anchor on what was paid.
 //
@@ -15,13 +15,13 @@
 
 import { BPS, runBars, type BarsState, type BuyInput, type OrderInput } from './vendor/makefun-bars.ts';
 
-const WINDOW = 300;
+const WINDOW = 280;
 /** Buy tolerance above the window low, and sell tolerance below the window high, in bps. */
-const EDGE_TOLERANCE_BPS = 5n;
+const EDGE_TOLERANCE_BPS = 8n;
 const TEN_K = 10_000n;
-/** Take profit at +1.5%, stop loss at -0.8% from the fill price. */
-const TP_MULT = 1015n / 1000n === 1n ? 1015n : 1015n; // close*1000 >= entry*1015  (1.015x)
-const SL_MULT = 992n;                                  // close*1000 <= entry*992   (0.992x)
+/** Take profit at +2.5%, stop loss at -1.2% from the fill price. */
+const TP_MULT = 1025n; // close*1000 >= entry*1025  (1.025x)
+const SL_MULT = 988n;                                  // close*1000 <= entry*992   (0.992x)
 const THOUSAND = 1000n;
 const MAX_SLIPPAGE_BPS = 100;
 
